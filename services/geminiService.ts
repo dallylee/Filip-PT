@@ -1,9 +1,22 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Initialize lazily to prevent app crash if env var is missing during initial load
+const getAiClient = () => {
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    console.warn("Gemini API Key is missing");
+    return null;
+  }
+  return new GoogleGenAI({ apiKey });
+};
 
 export const getFitnessAdvice = async (userQuery: string): Promise<string> => {
   try {
+    const ai = getAiClient();
+    if (!ai) {
+      return "AI Service is currently unavailable (Missing API Configuration). Please contact Filip directly.";
+    }
+
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: userQuery,

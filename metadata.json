@@ -1,0 +1,7 @@
+{
+  "name": "Filip Levitsky PT - Dark Mode",
+  "description": "A high-performance personal training landing page redesign using a dark, neon-accented aesthetic powered by React, Tailwind, and Gemini AI.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
